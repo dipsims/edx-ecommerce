@@ -776,7 +776,20 @@ ECOMMERCE_PAYMENT_PROCESSOR_CONFIG = {
             'error_url': '/checkout/error/',
             'mode': 'sandbox',
             'receipt_url': '/checkout/receipt/'
-        }
+        },
+        'rave': {
+            'publishable_key': 'FLWPUBK_TEST-acfa46fe55f30bf7fa122e498a62ee6a-X',
+            'secret_key': 'FLWSECK_TEST-a2ef97af988e1b3617a4eb67423a9abf-X',
+            'hash': 'xyz',
+            'encrytion_key': 'FLWSECK_TEST2eae4bd5b443',
+            'webhook_url': 'ecommerce.dev.dipsims.xyz/rave_webhook'
+        },
+        'paystack': {
+            'publishable_key': 'pk_test_9adf1cce1ba3b1e00b2433c290f0d2326c8697bd',
+            'secret_key': 'sk_test_22fc9b1c656206d945eb8305662d94a4fecb1579',
+            'callback_url': 'ecommerce.dev.dipsims.xyz/paystack_webhook',
+            'webhook_url': 'ecommerce.dev.dipsims.xyz/paystack_webhook'
+        },
     }
 }
 MEDIA_STORAGE_BACKEND = {

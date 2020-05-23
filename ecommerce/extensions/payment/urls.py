@@ -28,10 +28,20 @@ STRIPE_URLS = [
     url(r'^submit/$', stripe.StripeSubmitView.as_view(), name='submit'),
 ]
 
+RAVE_URLS = [
+    # url(r'^submit/$', stripe.StripeSubmitView.as_view(), name='submit'),
+]
+
+PAYSTACK_URLS = [
+    # url(r'^submit/$', stripe.StripeSubmitView.as_view(), name='submit'),
+]
+
 urlpatterns = [
     url(r'^cybersource/', include((CYBERSOURCE_URLS, 'cybersource'))),
     url(r'^error/$', PaymentFailedView.as_view(), name='payment_error'),
     url(r'^paypal/', include((PAYPAL_URLS, 'paypal'))),
     url(r'^sdn/', include((SDN_URLS, 'sdn'))),
     url(r'^stripe/', include((STRIPE_URLS, 'stripe'))),
+    url(r'^rave/', include((STRIPE_URLS, 'rave'))),
+    url(r'^paystack/', include((STRIPE_URLS, 'paystack'))),
 ]

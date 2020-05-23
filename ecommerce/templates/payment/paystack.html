@@ -1,0 +1,47 @@
+{% load compress %}
+{% load static %}
+
+<!-- <form >
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <button type="button" onclick="payWithPaystack()"> Pay </button> 
+</form> -->
+
+<!-- 
+<form action="/process" method="POST" >
+  <script
+    src="https://js.paystack.co/v1/inline.js" 
+    data-key="pk_test_221221122121"
+    data-email="customer@email.com"
+    data-amount="10000"
+    data-ref=<UNIQUE TRANSACTION REFERENCE>
+  >
+  </script>
+</form>
+ -->
+   
+  <script>
+    function payWithPaystack(){
+      var handler = PaystackPop.setup({
+        key: '{{ client_side_payment_processor.publishable_key }}',
+        email: 'dretnan@logicaladdress.com',
+        amount: {% widthratio order_total.incl_tax 1 100 %},
+        currency: "{{ basket.currency|lower }}",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+           custom_fields: [
+              {
+                  label: "{{ platform_name }}",
+                  country: "{{ client_side_payment_processor.country }}"
+              }
+           ]
+        },
+        callback: function(response){
+            alert('success. transaction ref is ' + response.reference);
+        },
+        onClose: function(){
+            alert('window closed');
+        }
+      });
+      handler.openIframe();
+    }
+  </script>
