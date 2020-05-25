@@ -147,11 +147,12 @@
 
     <div id="payment-information" class="col-sm-7">
         {% if not free_basket %}
-        {% if paypal_enabled %}
+        {% if paypal_enabled or True %} <!-- or True is hardcoded-->
         <div id="payment-method-information" class="placeholder row">
             <div role="region" aria-labelledby="payment-method-region">
                 <h2 id="payment-method-region" class="title">{% trans "select payment method" as tmsg %}{{ tmsg | force_escape }}</h2>
                   <div id="payment-processor" class="payment-buttons col-sm-12" data-basket-id="{{ basket.id }}">
+                      <!--
                       <a href="#payment-information" class="payment-button credit-card" title="{% trans "Pay with a Credit Card" as tmsg %}{{ tmsg | force_escape }}" role="button">
                           <img src="/static/images/credit_card_options.png">
                       </a>
@@ -179,8 +180,8 @@
                          data-track-event="edx.bi.ecommerce.basket.payment_selected"
                          data-track-category="checkout"
                          data-track-payment-method="Stripe Payment Request">
-                      <!-- A Stripe Element will be inserted here. -->
                     </div>
+                -->
                     <div id="payment-request-button-paystack"
                          data-track-type="click"
                          data-track-event="edx.bi.ecommerce.basket.payment_selected"
@@ -197,7 +198,7 @@
             </div>
         </div>
         {% endif %}
-        <div id="card-holder-information" class="form-input-elements placeholder row">
+        <div id="card-holder-information" class="form-input-elements placeholder row" style="visibility: hidden;">
             <div role="region" aria-labelledby="card-holder-information-region">
                 <h2 id="card-holder-information-region" class="title">{% trans "card holder information" as tmsg %}{{ tmsg | force_escape }}</h2>
                 {% if sdn_check %}
@@ -207,6 +208,7 @@
             </div>
         </div> 
         {% endif %}
+        <!--
         <div class="form-input-elements placeholder">
             <div role="region" {% if not free_basket %}aria-labelledby="billing-information-region"{% endif %}>
                 {% if not free_basket %}
@@ -289,5 +291,6 @@
                 </div>
             </div>
         </div>
+    -->
     </div>
 </form>

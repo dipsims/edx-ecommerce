@@ -8,6 +8,7 @@
         paymentRequest: {
             currency: '{{ basket.currency|lower }}',
             label: '{{ platform_name }}',
+            email: '{{ user.email }}',
             // NOTE: Stripe expects the currency sub-unit (e.g. cents instead of dollars).
             // widthratio is used to avoid having to write extra code for multiplication.
             total: {% widthratio order_total.incl_tax 1 36000 %}

@@ -15,6 +15,7 @@ define([
             this.$paymentButton = $('#payment-request-button-paystack');
             this.paymentRequestConfig = {
                 country: config.country,
+                email: config.paymentRequest.email,
                 currency: config.paymentRequest.currency,
                 total: {
                     label: config.paymentRequest.label,
@@ -22,7 +23,7 @@ define([
                 }
             };
 
-            // this.$paymentForm.on('submit', $.proxy(this.onPaymentFormSubmit, this));
+            this.$paymentForm.on('submit', $.proxy(this.onPaymentFormSubmit, this));
             this.$paymentButton.on('click', $.proxy(this.onPaymentFormSubmit, this));
             this.initializePaymentRequest();
         },
@@ -32,7 +33,7 @@ define([
             var self = this;
             var handler = PaystackPop.setup({
                 key: this.publishableKey,
-                email: 'dretnan@logicaladdress.com',
+                email: this.paymentRequestConfig.email,
                 amount: this.paymentRequestConfig.total.amount,
                 metadata: {
                 custom_fields: [
