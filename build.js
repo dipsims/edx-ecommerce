@@ -55,6 +55,14 @@
         {
             name: 'js/views/stripe',
             exclude: ['js/common']
+        },
+        {
+            name: 'js/views/paystack',
+            exclude: ['js/common']
+        },
+        {
+            name: 'js/views/rave',
+            exclude: ['js/common']
         }
     ]
 })

@@ -154,7 +154,7 @@
                 {% else %}
                     {% for processor in payment_processors %}
                         <button data-track-type="click"
-                                data-track-event="edx.bi.ecommerce.basket.payment_selected"
+                                data-track-event="edx.bi.ecommerce.basket.payment_selected" 
                                 data-track-category="checkout"
                                 data-processor-name="{{ processor.NAME|lower }}"
                                 data-track-checkout-type="hosted"
@@ -165,6 +165,12 @@
                             {% elif processor.NAME == 'paypal' %}
                                 {# Translators: Do NOT translate the name PayPal. #}
                                 {% trans "Checkout with PayPal" as tmsg %}{{ tmsg | force_escape }}
+                            {% elif processor.NAME == 'paystack' %}
+                                {# Translators: Do NOT translate the name Paystack. #}
+                                {% trans "Checkout with Paystack" as tmsg %}{{ tmsg | force_escape }}
+                            {% elif processor.NAME == 'rave' %}
+                                {# Translators: Do NOT translate the name Rave. #}
+                                {% trans "Checkout with Rave" as tmsg %}{{ tmsg | force_escape }}
                             {% endif %}
                         </button>
                     {% endfor %}
@@ -181,7 +187,7 @@
                 {% trans "{strong_start}Note:{strong_end} To earn a verified certificate, you must verify your identity with a {strong_start}webcam{strong_end} and a {strong_start}government-issued photo ID{strong_end}. " as tmsg %}
                 {% interpolate_html tmsg strong_start='<strong>'|safe strong_end='</strong>'|safe %}
             {% else %}
-                {% trans "{strong_start}Note:{strong_end} To complete your enrollment, select Checkout or Checkout with PayPal." as tmsg %}
+                {% trans "{strong_start}Note:{strong_end} To complete your enrollment, kindly checkout with your preferred payment system." as tmsg %}
                 {% interpolate_html tmsg strong_start='<strong>'|safe strong_end='</strong>'|safe %}
             {% endif %}
         </div>

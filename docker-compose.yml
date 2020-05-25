@@ -1,0 +1,48 @@
+version: "2.1"
+
+services:
+
+  # memcached:
+  #   container_name: edx.devstack.memcached
+  #   hostname: memcached.devstack.edx
+  #   image: memcached:1.5.10-alpine
+  #   # ports:
+  #   #   - "11211:11211"
+
+  mysql:
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    container_name: edx.devstack.mysql
+    hostname: mysql.devstack.edx
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    image: mysql:5.6
+    # ports:
+    #   - "3506:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  ecommerce:
+    command: bash -c 'source /edx/app/ecommerce/ecommerce_env && while true; do python /edx/app/ecommerce/ecommerce/manage.py runserver 0.0.0.0:18130; sleep 2; done'
+    container_name: edx.devstack.ecommerce
+    hostname: ecommerce.devstack.edx
+    volumes:
+      - ecommerce:/edx/app/ecommerce/ecommerce:cached
+      - ecommerce_node_modules:/edx/app/ecommerce/ecommerce/node_modules
+    depends_on:
+      - mysql
+      # - memcached
+      # - lms
+      # - discovery
+    # Allows attachment to the ecommerce service using 'docker attach <containerID>'.
+    stdin_open: true
+    tty: true
+    environment:
+      DJANGO_WATCHMAN_TIMEOUT: 30
+      ENABLE_DJANGO_TOOLBAR: 1
+    image: logicaladdress/ecommerce
+    ports:
+      - "18130:18130"
+
+volumes:
+  mysql_data:

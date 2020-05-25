@@ -1,36 +1,44 @@
-edX E-Commerce Service  |Travis|_ |Codecov|_
-============================================
-.. |Travis| image:: https://travis-ci.com/edx/ecommerce.svg?branch=master
-.. _Travis: https://travis-ci.com/edx/ecommerce
+Install Node
+sudo apt install mysql-server mysql-client libmysqlclient-dev (Needed by mysqlclient python lib)
+Setup Virtual Env
+python3 -m venv venv
+source venv/bin/activate
+pip install -U setuptools pip
+git checkout -b feature-modifications
+make requirements
+Mimick Devstack
+cp ecommerce/settings/private.py.example ecommerce/settings/private.py (Uses SQLITE)
+python manage.py migrate
+make static
+python manage.py createsuperuser
 
-.. |Codecov| image:: http://codecov.io/github/edx/ecommerce/coverage.svg?branch=master
-.. _Codecov: http://codecov.io/github/edx/ecommerce?branch=master
+Use the information in LMS to create_or_update_site
+http://dev.dipsims.xyz/admin/oauth2_provider/application/4/change/
+http://dev.dipsims.xyz/admin/oauth2_provider/application/3/change/
 
-This repository contains the edX E-Commerce Service, which relies heavily on `django-oscar <https://django-oscar.readthedocs.org/en/latest/>`_, as well as all frontend and backend code used to manage edX's product catalog and handle orders for those products.
+python manage.py create_or_update_site --site-id 1 \
+    --site-domain 'http://dev.dipsims.xyz' --partner-code edX --partner-name 'Open edX' \
+    --lms-url-root 'http://dev.dipsims.xyz' --payment-processors cybersource,paypal,paystack \
+    --backend-service-client-id 'ecommerce-backend-service-key' \
+    --backend-service-client-secret 'ecommerce-backend-service-secret' \
+    --sso-client-id 'ecommerce-sso-key' --sso-client-secret 'ecommerce-sso-secret' \
+    --from-email sales@logicaladdress.com --discovery_api_url http://134.209.204.119:18381
 
-Documentation
--------------
+http://dev.dipsims.xyz/admin/oauth2_provider/application/3/change/
+Redirect uris:
+http://localhost:18130/complete/edx-oauth2/ http://ecommerce.dev.dipsims.xyz/complete/edx-oauth2/ http://127.0.0.1:8002/complete/edx-oauth2/ http://localhost:8002/complete/edx-oauth2/
 
-`Documentation <https://edx-ecommerce.readthedocs.io/en/latest/>`_ is hosted on Read the Docs. The source is hosted in this repo's `docs <https://github.com/edx/ecommerce/tree/master/docs>`_ directory. To contribute, please open a PR against this repo.
 
-License
--------
+Issues
+ERROR:  py35-django22-theme_static: InterpreterNotFound: python3.5
 
-The code in this repository is licensed under version 3 of the AGPL unless otherwise noted. Please see the LICENSE_ file for details.
+python --version (Ubuntu 18.04)
+Python 3.6.9
+apt install libsqlite3-dev
+See: https://vlearningit.wordpress.com/installation/install-python3-5-from-the-source-in-ubuntu-18-04/
 
-.. _LICENSE: https://github.com/edx/ecommerce/blob/master/LICENSE
 
-How To Contribute
------------------
 
-Contributions are welcome. Please read `How To Contribute <https://github.com/edx/edx-platform/blob/master/CONTRIBUTING.rst>`_ for details. Even though it was written with ``edx-platform`` in mind, these guidelines should be followed for Open edX code in general.
 
-Reporting Security Issues
--------------------------
-
-Please do not report security issues in public. Please email security@edx.org.
-
-Get Help
---------
-
-Ask questions and discuss this project on `Slack <https://openedx.slack.com/messages/ecommerce/>`_ or in the `edx-code Google Group <https://groups.google.com/forum/#!forum/edx-code>`_.
+TMP
+127.0.0.1:8002/basket/add/?sku=3D1B341

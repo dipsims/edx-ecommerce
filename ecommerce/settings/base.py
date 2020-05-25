@@ -745,6 +745,15 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 CORS_ORIGIN_WHITELIST = []
 CORS_URLS_REGEX = ''
 
+# PAYMENT PROCESSING
+PAYMENT_PROCESSORS = (
+    'ecommerce.extensions.payment.processors.cybersource.Cybersource',
+    'ecommerce.extensions.payment.processors.paypal.Paypal',
+    'ecommerce.extensions.payment.processors.stripe.Stripe',
+    # 'ecommerce.extensions.payment.processors.rave.Rave',
+    'ecommerce.extensions.payment.processors.paystack.Paystack',
+)
+
 ECOMMERCE_PAYMENT_PROCESSOR_CONFIG = {
     'edx': {
         'cybersource': {
@@ -776,7 +785,31 @@ ECOMMERCE_PAYMENT_PROCESSOR_CONFIG = {
             'error_url': '/checkout/error/',
             'mode': 'sandbox',
             'receipt_url': '/checkout/receipt/'
-        }
+        },
+        'rave': {
+            'publishable_key': 'FLWPUBK_TEST-acfa46fe55f30bf7fa122e498a62ee6a-X',
+            'endpoint': '',
+            'secret_key': 'FLWSECK_TEST-a2ef97af988e1b3617a4eb67423a9abf-X',
+            'hash': 'xyz',
+            'encrytion_key': 'FLWSECK_TEST2eae4bd5b443',
+            'webhook_url': 'ecommerce.dev.dipsims.xyz/rave_webhook',
+            'country': 'NG',
+            'receipt_page_url': '/checkout/receipt/',
+            'receipt_url': '/checkout/receipt/',
+            'cancel_checkout_path': '/checkout/cancel-checkout/',
+            'error_path': '/checkout/error/',
+        },
+        'paystack': {
+            'publishable_key': 'pk_test_9adf1cce1ba3b1e00b2433c290f0d2326c8697bd',
+            'secret_key': 'sk_test_22fc9b1c656206d945eb8305662d94a4fecb1579',
+            'callback_url': 'ecommerce.dev.dipsims.xyz/paystack_webhook',
+            'webhook_url': 'ecommerce.dev.dipsims.xyz/paystack_webhook',
+            'country': 'NG',
+            'receipt_page_url': '/checkout/receipt/',
+            'receipt_url': '/checkout/receipt/',
+            'cancel_checkout_path': '/checkout/cancel-checkout/',
+            'error_path': '/checkout/error/',
+        },
     }
 }
 MEDIA_STORAGE_BACKEND = {

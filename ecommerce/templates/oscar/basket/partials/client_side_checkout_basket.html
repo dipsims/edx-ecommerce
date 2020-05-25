@@ -181,6 +181,18 @@
                          data-track-payment-method="Stripe Payment Request">
                       <!-- A Stripe Element will be inserted here. -->
                     </div>
+                    <div id="payment-request-button-paystack"
+                         data-track-type="click"
+                         data-track-event="edx.bi.ecommerce.basket.payment_selected"
+                         data-track-category="checkout"
+                         data-track-payment-method="Paystack Payment Request">
+                    </div>
+                    <div id="payment-request-button-rave"
+                         data-track-type="click"
+                         data-track-event="edx.bi.ecommerce.basket.payment_selected"
+                         data-track-category="checkout"
+                         data-track-payment-method="Rave Payment Request">
+                    </div>
                   </div>
             </div>
         </div>
@@ -193,7 +205,7 @@
                 {% endif %}
                 {% crispy payment_form %}
             </div>
-        </div>
+        </div> 
         {% endif %}
         <div class="form-input-elements placeholder">
             <div role="region" {% if not free_basket %}aria-labelledby="billing-information-region"{% endif %}>

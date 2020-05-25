@@ -232,3 +232,34 @@ class StripeSubmitForm(forms.Form):
             Applicator().apply(basket, self.request.user, self.request)
 
         return basket
+
+class PaystackSubmitForm(forms.Form):
+    """
+    Form for Paystack token submissions.
+
+    This form differs drastically from `PaymentForm` because we can use the Stripe API to pull the billing address
+    from the token. This information is encoded in the token because we explicitly include the HTML form data in our
+    token creation request submitted Stripe by client-side JavaScript.
+    """
+    paystack_token = forms.CharField(widget=forms.HiddenInput(), required=True)
+    basket = forms.ModelChoiceField(
+        queryset=Basket.objects.all(),
+        widget=forms.HiddenInput(),
+        error_messages={
+            'invalid_choice': _('There was a problem retrieving your basket. Refresh the page to try again.'),
+        }
+    )
+
+    def __init__(self, user, request, *args, **kwargs):
+        super(PaystackSubmitForm, self).__init__(*args, **kwargs)
+        self.request = request
+        update_basket_queryset_filter(self, user)
+
+    def clean_basket(self):
+        basket = self.cleaned_data['basket']
+
+        if basket:
+            basket.strategy = self.request.strategy
+            Applicator().apply(basket, self.request.user, self.request)
+
+        return basket
