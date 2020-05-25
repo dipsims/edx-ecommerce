@@ -89,6 +89,10 @@ PAYMENT_PROCESSOR_CONFIG = {
             'encrytion_key': 'FLWSECK_TEST2eae4bd5b443',
             'webhook_url': 'ecommerce.dev.dipsims.xyz/rave_webhook',
             'country': 'NG',
+            'receipt_page_url': '/checkout/receipt/',
+            'receipt_url': '/checkout/receipt/',
+            'cancel_checkout_path': '/checkout/cancel-checkout/',
+            'error_path': '/checkout/error/',
         },
         'paystack': {
             'publishable_key': 'pk_test_9adf1cce1ba3b1e00b2433c290f0d2326c8697bd',
@@ -96,6 +100,10 @@ PAYMENT_PROCESSOR_CONFIG = {
             'callback_url': 'ecommerce.dev.dipsims.xyz/paystack_webhook',
             'webhook_url': 'ecommerce.dev.dipsims.xyz/paystack_webhook',
             'country': 'NG',
+            'receipt_page_url': '/checkout/receipt/',
+            'receipt_url': '/checkout/receipt/',
+            'cancel_checkout_path': '/checkout/cancel-checkout/',
+            'error_path': '/checkout/error/',
         },
     },
 }
